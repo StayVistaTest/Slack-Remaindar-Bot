@@ -2,7 +2,7 @@ name: Run Slack Bot
 
 on:
   schedule:
-    - cron: '0 17 50 * *'  # Every day at 06:00 UTC
+    - cron: '55 17 * * *'  # Every day at 06:00 UTC
   workflow_dispatch:       # Allow manual run
 
 jobs:

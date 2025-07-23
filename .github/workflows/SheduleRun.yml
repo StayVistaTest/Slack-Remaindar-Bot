@@ -2,7 +2,7 @@ name: Run Slack Bot
 
 on:
   schedule:
-    - cron: '10 18 * * *'  # Every day at 06:00 UTC
+    - cron: '30 12 * * *'  # Every day at 06:00 UTC
   workflow_dispatch:       # Allow manual run
 
 jobs:
@@ -27,4 +27,4 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        run: python your_script.py
+        run: python slack_remainder_bot.py

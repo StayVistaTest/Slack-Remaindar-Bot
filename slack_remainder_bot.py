@@ -62,7 +62,7 @@ def schedule_dm(user_id, message_text, post_at_ts):
             text=message_text,
             post_at=post_at_ts
         )
-        print(f"✅ Scheduled DM for {user_id} at {datetime.fromtimestamp(post_at_ts)}")
+        print(f"✅ Scheduled DM for {user_id} at {datetime.fromtimestamp(post_at_ts)} UTC")
     except SlackApiError as e:
         print(f"❌ Error scheduling message to {user_id}: {e.response['error']}")
 
@@ -78,13 +78,13 @@ def get_today_scheduled_time(hour, minute):
 
 # === 🧠 MAIN EXECUTION ===
 post_at = get_today_scheduled_time(target_hour, target_minute)
-print(f"⏳ Scheduling for {target_hour}:{str(target_minute).zfill(2)} today or tomorrow")
-print(f"🕒 Unix timestamp: {post_at} ({datetime.fromtimestamp(post_at)})")
+print(f"⏳ Scheduling for {target_hour}:{str(target_minute).zfill(2)} IST today or tomorrow")
+print(f"🕒 Unix timestamp: {post_at} ({datetime.fromtimestamp(post_at)}) UTC")
 
-user_ids = ["U08T3KBBQAH"]  # Replace with get_all_user_ids() to DM everyone
+# user_ids = ["U08T3KBBQAH"]  # Replace with get_all_user_ids() to DM everyone
 
 # # dont use this line until and unless you are confirm that your code runs properly, if this is runned, all the people in organization will receive the message
-# user_ids = get_all_user_ids() 
+user_ids = get_all_user_ids() 
 
 print(f"📨 Sending to {len(user_ids)} user(s)...")
 for user_id in user_ids:

@@ -5,7 +5,13 @@ import time
 import os
 import json
 import gspread
+import pytz
 from oauth2client.service_account import ServiceAccountCredentials
+
+ist = pytz.timezone('Asia/Kolkata')
+now_ist = datetime.now(ist)
+
+print(now_ist.strftime('%Y-%m-%d %H:%M:%S %Z%z'))  # Output with timezone
 
 with open("slack-remainder-c546d07d7770.json", "w") as f:
     f.write(os.getenv("GOOGLE_CREDENTIALS"))
@@ -20,6 +26,7 @@ message = sheet.cell(1, 2).value  # Get message from row 1, col 2
 # day = sheet.cell(2, 2).value  # Get day from row 2, col 2 (commented out, not used anymore)
 hour = sheet.cell(2, 2).value  # Get hour from row 2, col 2
 min = sheet.cell(3, 2).value  # Get minute from row 3, col 2
+
 
 # === 🔐 YOUR BOT TOKEN HERE ===
 SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
@@ -62,7 +69,7 @@ def schedule_dm(user_id, message_text, post_at_ts):
 # === ⏰ FIND NEXT TARGET TIME ===
 # Removed day check, just use today's date for scheduled time
 def get_today_scheduled_time(hour, minute):
-    now = datetime.now()
+    now = datetime.now(ist)
     target_time = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
     if target_time < now:
         # If time already passed today, schedule for tomorrow
